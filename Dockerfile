@@ -1,23 +1,26 @@
 FROM alpine:latest
 
+# 1. Declare the Automatic Docker Variable
+ARG TARGETARCH
+# 2. Set the Version
 ARG PB_VERSION=0.34.2
 
-RUN apk add --no-cache \
-    unzip \
-    ca-certificates
+# 3. Install Tools
+RUN apk add --no-cache unzip ca-certificates wget
 
-# Download and unzip PocketBase
-ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip /tmp/pb.zip
+# 4. Download (Dynamic Architecture)
+# Docker automatically swaps ${TARGETARCH} with 'amd64' or 'arm64'
+RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_${TARGETARCH}.zip -O /tmp/pb.zip
+
+# 5. Unzip
 RUN unzip /tmp/pb.zip -d /pb/
 
-# Create the data directory
+# 6. Cleanup
+RUN rm /tmp/pb.zip
+
+# 7. Setup Data Dir
 RUN mkdir -p /pb/pb_data
 
-# Expose the default port
 EXPOSE 8090
 
-# Run PocketBase
-# --http=0.0.0.0:8090 binds to all interfaces (required for Docker)
-# --dir=/pb/pb_data ensures data goes to the volume
-# --publicDir=/pb/pb_public serves static files (optional, but good for hosting frontends)
 CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8090", "--dir=/pb/pb_data"]
