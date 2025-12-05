@@ -6,7 +6,7 @@
 - follow the web URL
 - as prompted, create a new GitHub app
 - authorize the fork that you created of this repo
-- in the web UI, create a new project and pick the repo, deploy
+- in the web UI, create a new project with this fork, deploy
 - go to "Run Command", and run (change the email and password!):
 
 ```bash
