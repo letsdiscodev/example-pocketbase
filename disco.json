@@ -9,7 +9,7 @@
             [
                 {
                     "name": "pb_data",
-                    "path": "/pb/pb_data"
+                    "destinationPath": "/pb/pb_data"
                 }
             ]
         }
