@@ -2,7 +2,7 @@
 
 - fork this repo into your own GitHub account
 - ssh into a fresh Ubuntu 24.04 LTS machine
-- run `curl -fsSL https://disco.cloud/install.sh | sh` there
+- on that server, run `curl -fsSL https://disco.cloud/install.sh | sh`
 - follow the web URL
 - as prompted, create a new GitHub app
 - authorize the fork that you created of this repo
